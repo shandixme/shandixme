@@ -13,6 +13,8 @@ Static site: plain HTML, CSS and two small scripts. No build step.
 - `img/` — cursor images, site icon (`favicon.svg`, `favicon-32.png`, `apple-touch-icon.png`); put photos here
 - `CNAME` — tells GitHub Pages the site lives at shandixme.com
 
+Every page loads Google Analytics (GA4, ID `G-8T6GRHKDJ5`): three lines in the `<head>` starting with the comment `Google Analytics`. Keep them when you copy a page; delete them to turn tracking off.
+
 ## Editing text
 
 Open the `.html` file in any text editor, search for the sentence, retype it, save, upload.

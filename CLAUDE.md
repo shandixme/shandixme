@@ -41,7 +41,9 @@ docs/design-system.md   色票、字體、元件、動態規格
 - **開場動畫**：只在首頁，每個瀏覽器分頁只播一次（sessionStorage `shandixme-intro`）。`index.html` 的 `<head>` 有一行 inline script 決定要不要播（reduced motion、網址帶 `#works` 等錨點時不播），會在 `<html>` 加 class `intro` 先藏起內容；`js/intro.js` 畫出 96×72 格的像素場景 SVG：書桌、小盆栽、CRT 螢幕、鍵盤滑鼠、主機。時間軸寫在 `style.css` 的 opening animation 區塊：0–0.5s 出現、0.7s 電源燈亮、0.9–1.6s 螢幕像老電視一樣先出現白線再撐開、1.55s 畫面閃爍出現、1.9–3.1s 讀取條（主機燈閃）、3.2–4.3s 衝進螢幕、4.3–4.8s 淡出。點擊、任何按鍵或 Skip 按鈕可跳過。script 失敗時 CSS 會在 8 秒後自動顯示內容。改時間時 `intro.js` 的 `END` 要和 CSS 的淡出時間一致。
 - **游標拖尾**：`mousemove` 時產生 `.trail` 元素，約 0.75 秒淡出後移除。只在 `(pointer: fine)` 且沒有 `prefers-reduced-motion` 時啟用。
 - **游標圖**是 24×38 的 PNG（12×19 像素箭頭放大兩倍）。白色是一般游標，薄荷綠（`#94D6BF`）用在連結與按鈕。
-- **字體**從 Google Fonts 載入，是唯一的外部相依。
+- **字體**從 Google Fonts 載入。
+- **Google Analytics（GA4）**：評估 ID `G-8T6GRHKDJ5`。每個頁面 `<head>` 的網站圖示後面有三行（一行註解、兩行 script）。新增頁面時要一起複製；拿掉時把這三行刪掉即可。目前沒有 cookie 同意視窗。
+- 外部相依只有 Google Fonts 和 Google Analytics。
 
 ## 設計規則
 
