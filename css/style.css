@@ -35,6 +35,16 @@ a,button,.slot{cursor:url(../img/cursor-link.png) 0 0,pointer}
 .slot .nm{overflow-wrap:anywhere}
 @media(max-width:900px){.slots{grid-template-columns:repeat(4,minmax(0,1fr)) !important}}
 @media(max-width:560px){.slots{grid-template-columns:repeat(2,minmax(0,1fr)) !important}}
+/* phones: short slots (number beside the name) so the photo below stays in view */
+@media(max-width:560px){
+  .slots{gap:8px !important}
+  .slot{aspect-ratio:auto;min-height:56px;flex-direction:row;align-items:center;justify-content:flex-start;gap:8px;padding:6px 8px}
+  .slot .no{font-size:20px;flex:0 0 auto}
+  .slot .nm{font-size:12px}
+  #works{padding-top:56px !important}
+  #works div:has(>.slots){padding:12px !important;gap:16px !important}
+  #works [aria-live]{padding:14px !important}
+}
 @media(max-width:560px){.gallery{grid-template-columns:minmax(0,1fr) !important}}
 
 /* works photo: pixelated layer drawn by main.js, shown on top of the photo while hovered */

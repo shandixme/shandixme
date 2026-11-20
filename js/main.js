@@ -27,7 +27,16 @@
     if (btn.dataset.href) { link.href = btn.dataset.href; link.style.display = 'flex'; }
     else { link.style.display = 'none'; }
   }
-  slots.forEach(function (b) { b.addEventListener('click', function () { show(b); }); });
+  // on phones the photo sits below the slots: after a tap, bring it into view if it is off screen
+  var narrow = window.matchMedia('(max-width: 560px)');
+  slots.forEach(function (b) { b.addEventListener('click', function () {
+    show(b);
+    if (!narrow.matches) return;
+    var box = document.getElementById('sel-img-link');
+    if (box && box.getBoundingClientRect().bottom > window.innerHeight) {
+      box.scrollIntoView({ behavior: reduce ? 'auto' : 'smooth', block: 'nearest' });
+    }
+  }); });
 
   // 2. Twinkle: give every sky star its own rhythm
   document.querySelectorAll('.tw').forEach(function (el) {
