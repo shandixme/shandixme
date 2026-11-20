@@ -1,0 +1,67 @@
+/* shandixme.com — shared styles. Most styling lives inline on each element in the HTML. */
+body{margin:0;background:#C5CBE8}
+a{color:#1F2552}a:hover{color:#6C78B8}
+button{font-family:inherit}
+html{scroll-behavior:smooth}
+img{image-rendering:pixelated;max-width:100%}
+
+/* pixel cursor: white arrow everywhere, mint arrow on links and buttons */
+html,body{cursor:url(../img/cursor.png) 0 0,auto}
+a,button,.slot{cursor:url(../img/cursor-link.png) 0 0,pointer}
+
+/* desktop icons: column on desktop, row on phones */
+.dock{display:flex;flex-direction:column;gap:20px}
+@media(max-width:720px){.dock{flex-direction:row}}
+
+/* works inventory slots */
+.slot{aspect-ratio:1;min-width:0;background:#FFFFFF;color:#1F2552;border:2px solid #6C78B8;padding:10px;display:flex;flex-direction:column;justify-content:space-between;align-items:flex-start;text-align:left}
+.slot .no{font-family:'Pixelify Sans',sans-serif;font-weight:700;font-size:32px;line-height:1;color:#3B4A9C}
+.slot .nm{font-size:13px;line-height:1.2}
+.slot.is-on{background:#94D6BF;box-shadow:inset 0 0 0 3px #FFFFFF}
+.slot.is-on .no{color:inherit}
+.slot:focus-visible,a:focus-visible{outline:3px solid #1F2552;outline-offset:2px}
+
+/* twinkling sky stars */
+@keyframes tw{0%,100%{opacity:1}50%{opacity:.1}}
+.tw{animation:tw 2.4s steps(4,end) infinite}
+
+/* stars that trail the cursor */
+.trail{position:fixed;left:0;top:0;width:16px;height:16px;margin:-8px 0 0 -8px;pointer-events:none;z-index:9999;animation:trail .75s ease-out forwards}
+@keyframes trail{0%{opacity:1;transform:translate(var(--x),var(--y)) scale(1) rotate(0)}100%{opacity:0;transform:translate(calc(var(--x) + var(--dx)),calc(var(--y) + 26px)) scale(.3) rotate(140deg)}}
+
+@media(prefers-reduced-motion:reduce){.tw{animation:none}html{scroll-behavior:auto}}
+
+/* inventory: 8 in a row on desktop, 4 on tablets, 2 on phones. Work-page gallery: 1 column on phones */
+.slot .nm{overflow-wrap:anywhere}
+@media(max-width:900px){.slots{grid-template-columns:repeat(4,minmax(0,1fr)) !important}}
+@media(max-width:560px){.slots{grid-template-columns:repeat(2,minmax(0,1fr)) !important}}
+@media(max-width:560px){.gallery{grid-template-columns:minmax(0,1fr) !important}}
+
+/* works photo: pixelated layer drawn by main.js, shown on top of the photo while hovered */
+.pix{position:absolute;inset:0;width:100%;height:100%;image-rendering:pixelated;pointer-events:none}
+
+/* ---------- opening animation (home page only, see js/intro.js) ----------
+   timeline: 0–0.5s desk and computer appear · 0.7s power light on · 0.9–1.6s screen switches on (old-TV line, then fills)
+             1.6s picture flickers in · 1.9–3.1s loading bar (tower light blinks) · 3.2–4.3s dive into the screen · 4.3–4.8s fade out */
+html.intro body{background:#141A3C}
+html.intro body>div:first-child{visibility:hidden;animation:intro-safety 0s 8s forwards}  /* safety: show the site even if the script fails */
+@keyframes intro-safety{to{visibility:visible}}
+.intro-overlay{position:fixed;inset:0;z-index:10000;display:flex;align-items:center;justify-content:center;overflow:hidden;
+  background-color:#141A3C;background-image:radial-gradient(#6F7CC4 2px,transparent 2px),linear-gradient(180deg,#141A3C 0%,#1D2552 100%);background-size:12px 12px,100% 100%;
+  animation:intro-out .5s steps(5) 4.3s forwards}
+.intro-overlay.is-skipping{animation:intro-out .25s steps(3) forwards}
+@keyframes intro-out{to{opacity:0;visibility:hidden}}
+.intro-scene{width:min(86vw,720px);height:auto;transform-origin:50% 34.72%;animation:intro-in .5s steps(5) both,intro-zoom 1.1s cubic-bezier(.55,0,.9,.35) 3.2s forwards}
+@keyframes intro-in{from{opacity:0}}
+@keyframes intro-zoom{to{transform:scale(var(--zoom,20))}}
+.intro-led{animation:intro-led 0s .7s forwards}
+@keyframes intro-led{to{fill:#4FAE8E}}
+.intro-crt{transform-box:fill-box;transform-origin:50% 50%;transform:scale(0,0);animation:intro-crt .7s steps(7) .9s forwards}
+@keyframes intro-crt{0%{transform:scale(.04,.04)}35%{transform:scale(1,.04)}85%{transform:scale(1,1);opacity:1}100%{transform:scale(1,1);opacity:0}}
+.intro-power{opacity:0;animation:intro-power .4s steps(1,end) 1.55s forwards}
+@keyframes intro-power{0%{opacity:0}25%{opacity:.6}50%{opacity:.2}75%{opacity:1}100%{opacity:1}}
+.intro-bar{transform-box:fill-box;transform-origin:0 50%;transform:scaleX(0);animation:intro-bar 1.2s steps(10) 1.9s forwards}
+@keyframes intro-bar{to{transform:scaleX(1)}}
+.intro-disk{animation:intro-disk .3s steps(1,end) 1.9s 4}
+@keyframes intro-disk{0%{fill:#94D6BF}50%{fill:#8D97CC}}
+.intro-skip{position:absolute;right:24px;bottom:24px;font-family:'DotGothic16',monospace;font-size:15px;color:#1F2552;background:#FFFFFF;border:2px solid #6C78B8;box-shadow:3px 3px 0 #8D97CC;padding:0 18px;min-height:44px}
